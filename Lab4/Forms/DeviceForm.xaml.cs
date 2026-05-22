@@ -1,28 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab4.Forms;
+using Lab4.Models;
+using Lab4.Models;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lab4.Forms
 {
-    /// <summary>
-    /// Interaction logic for DeviceForm.xaml
-    /// </summary>
-    public partial class DeviceForm : Page
+    public partial class DeviceForm : Window
     {
+        private Sensor _sensor;
+
+        public Device CreatedDevice { get; private set; }
+
         public DeviceForm()
         {
             InitializeComponent();
+
+            CalibrationDatePicker.SelectedDate = DateTime.Today;
+        }
+
+        private void SensorButton_Click(object sender, RoutedEventArgs e)
+        {
+            SensorForm form = new SensorForm();
+
+            if (form.ShowDialog() == true)
+            {
+                _sensor = form.CreatedSensor;
+
+                MessageBox.Show("Датчик створено.");
+            }
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (_sensor == null)
+                {
+                    MessageBox.Show("Спочатку створіть датчик.");
+                    return;
+                }
+
+                int position =
+                    int.Parse(PositionTextBox.Text);
+
+                DateTime calibrationDate =
+                    CalibrationDatePicker.SelectedDate.Value;
+
+                CreatedDevice = new Device(
+                    _sensor,
+                    position,
+                    calibrationDate);
+
+                DialogResult = true;
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show(
+                    "Перевірте правильність введених даних.");
+            }
         }
     }
 }

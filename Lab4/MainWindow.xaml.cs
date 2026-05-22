@@ -1,5 +1,6 @@
-﻿using System.Windows;
+﻿using Lab4.Forms;
 using Lab4.Models;
+using System.Windows;
 
 namespace Lab4
 {
@@ -14,6 +15,29 @@ namespace Lab4
             _channel = new MeasurementChannel();
 
             RefreshList();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeviceForm form = new DeviceForm();
+
+            if (form.ShowDialog() == true)
+            {
+                _channel.Devices.Add(
+                    form.CreatedDevice);
+
+                RefreshList();
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DevicesListBox.SelectedItem is Device device)
+            {
+                _channel.Devices.Remove(device);
+
+                RefreshList();
+            }
         }
 
         private void RefreshList()
