@@ -1,6 +1,5 @@
 ﻿using Lab4.Forms;
 using Lab4.Models;
-using Lab4.Models;
 using System;
 using System.Windows;
 
@@ -18,6 +17,16 @@ namespace Lab4.Forms
 
             CalibrationDatePicker.SelectedDate = DateTime.Today;
         }
+
+        public DeviceForm(Device device) : this()
+        {
+            _sensor = device.Sensor;
+
+            PositionTextBox.Text = device.MountingPosition.ToString();
+
+            CalibrationDatePicker.SelectedDate = device.CalibrationDate;
+        }
+
 
         private void SensorButton_Click(object sender, RoutedEventArgs e)
         {
@@ -41,16 +50,11 @@ namespace Lab4.Forms
                     return;
                 }
 
-                int position =
-                    int.Parse(PositionTextBox.Text);
+                int position =int.Parse(PositionTextBox.Text);
 
-                DateTime calibrationDate =
-                    CalibrationDatePicker.SelectedDate.Value;
+                DateTime calibrationDate =CalibrationDatePicker.SelectedDate.Value;
 
-                CreatedDevice = new Device(
-                    _sensor,
-                    position,
-                    calibrationDate);
+                CreatedDevice = new Device(_sensor,position,calibrationDate);
 
                 DialogResult = true;
                 Close();

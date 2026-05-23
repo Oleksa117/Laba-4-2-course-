@@ -23,8 +23,7 @@ namespace Lab4
 
             if (form.ShowDialog() == true)
             {
-                _channel.Devices.Add(
-                    form.CreatedDevice);
+                _channel.Devices.Add(form.CreatedDevice);
 
                 RefreshList();
             }
@@ -35,6 +34,23 @@ namespace Lab4
             if (DevicesListBox.SelectedItem is Device device)
             {
                 _channel.Devices.Remove(device);
+
+                RefreshList();
+            }
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DevicesListBox.SelectedItem is not Device device)
+                return;
+
+            DeviceForm form = new DeviceForm(device);
+
+            if (form.ShowDialog() == true)
+            {
+                int index = _channel.Devices.IndexOf(device);
+
+                _channel.Devices[index] =form.CreatedDevice;
 
                 RefreshList();
             }

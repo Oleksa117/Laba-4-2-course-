@@ -29,7 +29,8 @@
             <Button x:Name="EditButton"
                     Content="Редагувати"
                     Width="100"
-                    Margin="5"/>
+                    Margin="5"
+                    Click="EditButton_Click"/>
 
             <Button x:Name="DeleteButton"
                     Content="Видалити"
