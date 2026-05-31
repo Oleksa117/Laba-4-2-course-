@@ -5,7 +5,7 @@ using Lab4.Models;
 using System.IO;
 using System.Text.Json;
 
-namespace Laba4.Services
+namespace Lab4.Services
 {
     public static class JsonStorage
     {
@@ -22,7 +22,7 @@ namespace Laba4.Services
         {
             string json =File.ReadAllText(path);
 
-            MeasurementChannelDto dto =JsonSerializer.Deserialize<MeasurementChannelDto>(json);
+            MeasurementChannelDto dto = JsonSerializer.Deserialize<MeasurementChannelDto>(json);
 
             return Mapper.FromDto(dto);
         }

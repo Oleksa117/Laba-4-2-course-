@@ -4,7 +4,7 @@ using Lab4.DTO;
 using Lab4.Models;
 using System.Linq;
 
-namespace Laba4.Services
+namespace Lab4.Services
 {
     public static class Mapper
     {

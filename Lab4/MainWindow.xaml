@@ -13,8 +13,9 @@
         </Grid.RowDefinitions>
 
         <ListBox x:Name="DevicesListBox"
-                 Grid.Row="0"
-                 Margin="0,0,0,10"/>
+         Grid.Row="0"
+         Margin="0,0,0,10"
+         SelectionChanged="DevicesListBox_SelectionChanged"/>
 
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
@@ -30,13 +31,15 @@
                     Content="Редагувати"
                     Width="100"
                     Margin="5"
-                    Click="EditButton_Click"/>
+                    Click="EditButton_Click"
+                    IsEnabled="False"/>
 
             <Button x:Name="DeleteButton"
                     Content="Видалити"
                     Width="100"
                     Margin="5"
-                    Click="DeleteButton_Click"/>
+                    Click="DeleteButton_Click"
+                    IsEnabled="False"/>
 
         </StackPanel>
 
