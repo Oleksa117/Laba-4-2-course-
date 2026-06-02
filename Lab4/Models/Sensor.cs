@@ -1,15 +1,20 @@
 ﻿using Lab4.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lab4.Models
 {
     public class Sensor
     {
+        [Required]
         public QuantityType QuantityType { get; set; }
 
+        [Range(-1000000, 1000000)]
         public double MinValue { get; set; }
 
+        [Range(-1000000, 1000000)]
         public double MaxValue { get; set; }
 
+        [Range(-1000000, 1000000)]
         public double CurrentValue { get; set; }
 
         public Sensor(QuantityType quantityType,double minValue,double maxValue,double currentValue)
@@ -31,5 +36,14 @@ namespace Lab4.Models
             MaxValue = maxValue;
             CurrentValue = currentValue;
         }
+
+        public Sensor(Sensor other)
+        {
+            QuantityType = other.QuantityType;
+            MinValue = other.MinValue;
+            MaxValue = other.MaxValue;
+            CurrentValue = other.CurrentValue;
+        }
     }
+
 }

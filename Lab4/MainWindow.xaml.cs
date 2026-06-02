@@ -24,7 +24,10 @@ namespace Lab4
                 _channel = new MeasurementChannel();
             }
 
-            RefreshList();
+            DevicesListBox.ItemsSource = _channel.Devices;
+
+            EditButton.IsEnabled = false;
+            DeleteButton.IsEnabled = false;
 
             Closing += MainWindow_Closing;
         }
@@ -36,8 +39,6 @@ namespace Lab4
             if (form.ShowDialog() == true)
             {
                 _channel.Devices.Add(form.CreatedDevice);
-
-                RefreshList();
             }
         }
 
@@ -46,8 +47,6 @@ namespace Lab4
             if (DevicesListBox.SelectedItem is Device device)
             {
                 _channel.Devices.Remove(device);
-
-                RefreshList();
             }
         }
 
@@ -56,26 +55,18 @@ namespace Lab4
             if (DevicesListBox.SelectedItem is not Device device)
                 return;
 
-            DeviceForm form = new DeviceForm(device);
+            Device copy = new Device(device);
+
+            DeviceForm form = new DeviceForm(copy);
 
             if (form.ShowDialog() == true)
             {
                 int index = _channel.Devices.IndexOf(device);
 
-                _channel.Devices[index] =form.CreatedDevice;
-
-                RefreshList();
+                _channel.Devices[index] = form.CreatedDevice;
             }
         }
 
-        private void RefreshList()
-        {
-            DevicesListBox.ItemsSource = null;
-            DevicesListBox.ItemsSource = _channel.Devices;
-
-            EditButton.IsEnabled = false;
-            DeleteButton.IsEnabled = false;
-        }
 
         private void MainWindow_Closing(object sender,System.ComponentModel.CancelEventArgs e)
         {

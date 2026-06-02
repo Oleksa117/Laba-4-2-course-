@@ -16,6 +16,7 @@ namespace Lab4.Services
                     {
                         MountingPosition = d.MountingPosition,
                         CalibrationDate = d.CalibrationDate,
+                        SerialNumber = d.SerialNumber,
 
                         Sensor = new SensorDto
                         {
@@ -43,7 +44,7 @@ namespace Lab4.Services
                     d.Sensor.MaxValue,
                     d.Sensor.CurrentValue);
 
-                Device device = new Device(sensor,d.MountingPosition,d.CalibrationDate);
+                Device device = new Device(sensor,d.MountingPosition,d.CalibrationDate, d.SerialNumber);
 
                 channel.Devices.Add(device);
             }

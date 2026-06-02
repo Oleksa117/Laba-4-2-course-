@@ -2,6 +2,9 @@
 using Lab4.Models;
 using System;
 using System.Windows;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lab4.Forms
 {
@@ -21,12 +24,10 @@ namespace Lab4.Forms
         public DeviceForm(Device device) : this()
         {
             _sensor = device.Sensor;
-
             PositionTextBox.Text = device.MountingPosition.ToString();
-
             CalibrationDatePicker.SelectedDate = device.CalibrationDate;
+            SerialNumberTextBox.Text = device.SerialNumber;
         }
-
 
         private void SensorButton_Click(object sender, RoutedEventArgs e)
         {
@@ -50,19 +51,29 @@ namespace Lab4.Forms
                     return;
                 }
 
-                int position =int.Parse(PositionTextBox.Text);
+                int position = int.Parse(PositionTextBox.Text);
 
-                DateTime calibrationDate =CalibrationDatePicker.SelectedDate.Value;
+                DateTime calibrationDate = CalibrationDatePicker.SelectedDate.Value;
 
-                CreatedDevice = new Device(_sensor,position,calibrationDate);
+                string serialNumber = SerialNumberTextBox.Text;
+
+                CreatedDevice = new Device(_sensor, position, calibrationDate, serialNumber);
+
+                var context = new ValidationContext(CreatedDevice);
+                var results = new List<ValidationResult>();
+
+                if (!Validator.TryValidateObject(CreatedDevice, context, results, true))
+                {
+                    MessageBox.Show(string.Join("\n", results.Select(r => r.ErrorMessage)), "Помилка валідації");
+                    return;
+                }
 
                 DialogResult = true;
                 Close();
             }
             catch
             {
-                MessageBox.Show(
-                    "Перевірте правильність введених даних.");
+                MessageBox.Show("Перевірте правильність введених даних.");
             }
         }
     }

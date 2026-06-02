@@ -10,5 +10,7 @@ namespace Lab4.DTO
         public int MountingPosition { get; set; }
 
         public DateTime CalibrationDate { get; set; }
+
+        public string SerialNumber { get; set; }
     }
 }
