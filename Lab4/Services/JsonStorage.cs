@@ -20,11 +20,22 @@ namespace Lab4.Services
 
         public static MeasurementChannel Load(string path)
         {
-            string json =File.ReadAllText(path);
+            string json = File.ReadAllText(path);
 
-            MeasurementChannelDto dto = JsonSerializer.Deserialize<MeasurementChannelDto>(json);
+            MeasurementChannelDto? dto = JsonSerializer.Deserialize<MeasurementChannelDto>(json);
 
-            return Mapper.FromDto(dto);
+            if (dto == null)
+                throw new InvalidDataException("Помилка десеріалізації.");
+
+            MeasurementChannel channel = Mapper.FromDto(dto);
+
+            // Перевірка після десеріалізації
+            foreach (var device in channel.Devices)
+            {
+                device.Validate();
+            }
+
+            return channel;
         }
     }
 }
