@@ -6,7 +6,7 @@ namespace Lab4.Models
 {
     public class Device
     {
-        [Required]
+        [Required]//валідація (обов'язковий)
         public Sensor Sensor { get; private set; }
 
         [Range(1, int.MaxValue,
@@ -20,15 +20,17 @@ namespace Lab4.Models
        ErrorMessage = "Серійний номер повинен бути у форматі AA-1234.")]
         public string SerialNumber { get; private set; }
 
+        // Конструктор для створення нового пристрою
         public Device(Sensor sensor,int mountingPosition,DateTime calibrationDate,string serialNumber)
         {
-            Sensor = sensor;
+            Sensor = sensor;//ініціалізує властивість 
             MountingPosition = mountingPosition;
             CalibrationDate = calibrationDate;
             SerialNumber = serialNumber;
 
             Validate();
         }
+        // Конструктор для копіювання пристрою
         public Device(Device other)
         {
             Sensor = new Sensor(other.Sensor);

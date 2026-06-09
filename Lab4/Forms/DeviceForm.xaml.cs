@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Lab4.Forms
 {
-    public partial class DeviceForm : Window
+    public partial class DeviceForm : Window//Пристрій
     {
         private Sensor _sensor;
 
@@ -23,19 +23,20 @@ namespace Lab4.Forms
 
         public DeviceForm(Device device) : this()
         {
-            _sensor = device.Sensor;
-            PositionTextBox.Text = device.MountingPosition.ToString();
+            _sensor = device.Sensor;//копіює датчик
+            PositionTextBox.Text = device.MountingPosition.ToString();//заповнює 
             CalibrationDatePicker.SelectedDate = device.CalibrationDate;
             SerialNumberTextBox.Text = device.SerialNumber;
         }
 
+        // Відкриває форму для створення датчика 
         private void SensorButton_Click(object sender, RoutedEventArgs e)
         {
-            SensorForm form = new SensorForm();
+            SensorForm form = new SensorForm();//ств форм
 
             if (form.ShowDialog() == true)
             {
-                _sensor = form.CreatedSensor;
+                _sensor = form.CreatedSensor;//збер ств датчик
 
                 MessageBox.Show("Датчик створено.");
             }
@@ -59,10 +60,10 @@ namespace Lab4.Forms
 
                 CreatedDevice = new Device(_sensor, position, calibrationDate, serialNumber);
 
-                var context = new ValidationContext(CreatedDevice);
+                var context = new ValidationContext(CreatedDevice);//перевіряє валідність даних (помилки)
                 var results = new List<ValidationResult>();
 
-                if (!Validator.TryValidateObject(CreatedDevice, context, results, true))
+                if (!Validator.TryValidateObject(CreatedDevice, context, results, true))//перевіряє об'єкт на відповідність всім атрибутам валідації
                 {
                     MessageBox.Show(string.Join("\n", results.Select(r => r.ErrorMessage)), "Помилка валідації");
                     return;

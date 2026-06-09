@@ -5,9 +5,9 @@ using System.Windows;
 
 namespace Lab4.Forms
 {
-    public partial class SensorForm : Window
+    public partial class SensorForm : Window//Датчик
     {
-        public Sensor CreatedSensor { get; private set; }
+        public Sensor CreatedSensor { get; private set; }// зберігає створений датчик після успішного завершення форми
 
         public SensorForm()
         {
@@ -22,7 +22,7 @@ namespace Lab4.Forms
         {
             try
             {
-                QuantityType quantityType =(QuantityType)QuantityTypeComboBox.SelectedItem;
+                QuantityType quantityType =(QuantityType)QuantityTypeComboBox.SelectedItem;//повертає вибраний тип величини з ComboBox
 
                 double minValue =double.Parse(MinValueTextBox.Text);
 
@@ -39,7 +39,7 @@ namespace Lab4.Forms
             {
                 MessageBox.Show("Введіть коректні числові значення.","Помилка",MessageBoxButton.OK,MessageBoxImage.Error);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException ex)//"Мін < макc"
             {
                 MessageBox.Show(ex.Message,"Помилка",MessageBoxButton.OK,MessageBoxImage.Warning);
             }

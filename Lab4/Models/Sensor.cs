@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Lab4.Models
 {
-    public class Sensor
+    public class Sensor//датчик
     {
         [Required]
         public QuantityType QuantityType { get; set; }
@@ -30,7 +30,7 @@ namespace Lab4.Models
                 throw new ArgumentException(
                     "Поточне значення повинно знаходитись у заданому діапазоні.");
             }
-
+            // Ініціалізація властивостей
             QuantityType = quantityType;
             MinValue = minValue;
             MaxValue = maxValue;
